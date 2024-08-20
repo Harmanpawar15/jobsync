@@ -1,33 +1,37 @@
-
 "use client";
 
 import React, { useState } from "react";
-import { Label } from "../components/ui/label";
-import { Input } from "../components/ui/input";
-import { cn } from "../utils/cn";
-import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
-import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Label } from "../../components/ui/label";
+import { Input } from "../../components/ui/input";
+import { cn } from "../../utils/cn";
 import { useRouter } from "next/navigation";
-import { BackgroundBeams } from "../components/ui/background-beams";
+import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
+import { BackgroundBeams } from "../../components/ui/background-beams";
 
 
-export function Signup() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+
+const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent) => {
+    
     e.preventDefault();
+  
     setError(null);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('User signed up:', userCredential.user);
-      alert('Signup successful!');
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User logged in:", userCredential.user);
+      alert('Login successful!');
       router.push('/');
     } catch (err: any) {
       setError(err.message);
@@ -35,47 +39,27 @@ export function Signup() {
   };
 
   return (
-    <div className="relative h-screen flex items-center justify-center overflow-hidden bg-neutral-900 ">
-     <BackgroundBeams/>
+    <div className="relative h-screen flex items-center justify-center overflow-hidden bg-neutral-900">
+      <BackgroundBeams/>
       <div className="max-w-md w-full mx-auto rounded-lg p-8 shadow-lg bg-white dark:bg-black relative z-10">
-        <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-          Welcome to Job Sync:
+        <h2 className="font-bold text-2xl text-neutral-800 dark:text-neutral-200">
+          Welcome Back to Job Sync
         </h2>
         <p className="text-neutral-600 text-sm mt-2 dark:text-neutral-300">
-          Sign up to Connect your Talent  with Opportunities.
+        Log In to Unlock Your Career Potential
         </p>
 
-        <form className="my-8" onSubmit={handleSubmit}>
-          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-            <LabelInputContainer>
-              <Label htmlFor="firstname">First Name</Label>
-              <Input
-                id="firstname"
-                placeholder="Tyler"
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-            </LabelInputContainer>
-            <LabelInputContainer>
-              <Label htmlFor="lastname">Last Name</Label>
-              <Input
-                id="lastname"
-                placeholder="Durden"
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-            </LabelInputContainer>
-          </div>
+        {error && (
+          <p className="text-red-500 text-sm mt-4 mb-6">{error}</p>
+        )}
+
+        <form className="my-8" onSubmit={handleLogin}>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="email">Email Address</Label>
             <Input
               id="email"
-              placeholder="projectmayhem@fc.com"
               type="email"
+              placeholder="projectmayhem@fc.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -85,23 +69,19 @@ export function Signup() {
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
-              placeholder="••••••••"
               type="password"
+              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </LabelInputContainer>
 
-          {error && (
-            <p className="text-red-500 text-sm mt-4 mb-6">{error}</p>
-          )}
-
           <button
             className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
             type="submit"
           >
-            Sign Up &rarr;
+            Login &rarr;
             <BottomGradient />
           </button>
 
@@ -112,7 +92,7 @@ export function Signup() {
               className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
               type="button"
               onClick={() => {
-                // Handle GitHub signup here
+                // Handle GitHub login here
               }}
             >
               <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
@@ -125,7 +105,7 @@ export function Signup() {
               className="relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
               type="button"
               onClick={() => {
-                // Handle Google signup here
+                // Handle Google login here
               }}
             >
               <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
@@ -139,7 +119,9 @@ export function Signup() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;
 
 const BottomGradient = () => {
   return (
@@ -163,5 +145,3 @@ const LabelInputContainer = ({
     </div>
   );
 };
-
-export default Signup;
