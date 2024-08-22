@@ -96,7 +96,7 @@ export function TypewriterEffectSmoothDemo() {
   };
 
   const handleSignupClick = () => {
-    router.push("/login"); // Navigate to the Login page
+    router.push("/checkoutform"); // Navigate to the Login page
   };
 
   return (

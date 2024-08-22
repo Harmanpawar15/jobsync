@@ -1,29 +1,38 @@
+import React from "react";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
-export function CardSpotlightDemo() {
+const CardSpotlightDemo: React.FC = () => {
   return (
-    <CardSpotlight className="h-96 w-96">
-      <p className="text-xl font-bold relative z-20 mt-2 text-white">
-        Authentication steps
-      </p>
-      <div className="text-neutral-200 mt-4 relative z-20">
-        Follow these steps to secure your account:
-        <ul className="list-none  mt-2">
-          <Step title="Enter your email address" />
-          <Step title="Create a strong password" />
-          <Step title="Set up two-factor authentication" />
-          <Step title="Verify your identity" />
-        </ul>
-      </div>
-      <p className="text-neutral-300 mt-4 relative z-20 text-sm">
-        Ensuring your account is properly secured helps protect your personal
-        information and data.
-      </p>
-    </CardSpotlight>
-  );
-}
+    <div className="relative h-screen flex items-center justify-center overflow-hidden bg-neutral-900">
+      {/* Background Beams covering the whole screen */}
+      <BackgroundBeams />
 
-const Step = ({ title }: { title: string }) => {
+      {/* Flashcard content */}
+      <CardSpotlight className="relative h-96 w-96 z-20 hover:scale-105 transition-transform duration-300">
+        <p className="text-xl font-bold mt-2 text-white">
+          Authentication steps
+        </p>
+        <div className="text-neutral-200 mt-4">
+          Follow these steps to secure your account:
+          <ul className="list-none mt-2">
+            <Step title="Enter your email address" />
+            <Step title="Create a strong password" />
+            <Step title="Set up two-factor authentication" />
+            <Step title="Verify your identity" />
+          </ul>
+        </div>
+        <p className="text-neutral-300 mt-4 text-sm">
+          Ensuring your account is properly secured helps protect your personal
+          information and data.
+        </p>
+      </CardSpotlight>
+    </div>
+  );
+};
+
+// Step Component
+const Step: React.FC<{ title: string }> = ({ title }) => {
   return (
     <li className="flex gap-2 items-start">
       <CheckIcon />
@@ -32,7 +41,8 @@ const Step = ({ title }: { title: string }) => {
   );
 };
 
-const CheckIcon = () => {
+// CheckIcon Component
+const CheckIcon: React.FC = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -51,3 +61,6 @@ const CheckIcon = () => {
     </svg>
   );
 };
+
+// Exporting the component as the default export
+export default CardSpotlightDemo;
