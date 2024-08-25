@@ -19,7 +19,7 @@ function Pricing() {
     },
     {
       title: "Pro Version",
-      price: "$9.99/month",
+      price: "$4.99/month",
       features: [
         "Unlimited flashcard generation",
         "Advanced customization options",
