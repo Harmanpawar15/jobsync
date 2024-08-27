@@ -1,9 +1,11 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+
+
+import { initializeApp, getApps } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBcUlOeYc1T9l8tqBebykgP7Ee2QK0YL1s",
@@ -22,25 +24,8 @@ const auth = getAuth(app);
 const firestore=getFirestore(app);
 const db = getFirestore(app);
 
-const trackUserRequests = async (userId) => {
-  const userRef = doc(db, "users", userId);
-  const userDoc = await getDoc(userRef);
 
-  if (userDoc.exists()) {
-    const userData = userDoc.data();
+ let firebase_app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-    if (userData.requestCount >= 3) {
-      return false; // User has exceeded request limit
-    } else {
-      await updateDoc(userRef, {
-        requestCount: userData.requestCount + 1,
-      });
-      return true; // Request count incremented
-    }
-  } else {
-    await setDoc(userRef, { requestCount: 1 });
-    return true; // New user, request count set to 1
-  }
-};
 
-export {firestore ,db, auth, app, firebaseConfig,  analytics} ;
+export {firestore ,db, auth, app, firebaseConfig, firebase_app, analytics} ;

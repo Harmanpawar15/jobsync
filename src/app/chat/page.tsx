@@ -2,15 +2,14 @@
 
 'use client';
 
-import { getAuth } from 'firebase/auth';
-import { useState, useEffect } from 'react';
-import { PaperAirplaneIcon } from '@heroicons/react/24/solid'; 
+
+import { useState} from 'react';
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { cn } from "../../utils/cn";
 import { BackgroundBeams } from '@/components/ui/background-beams';
 import { BackgroundGradient } from "../../components/ui/background-gradient";
-import { FaCheckCircle, FaCopy } from 'react-icons/fa'; 
+import {  FaCopy } from 'react-icons/fa'; 
 import { useRouter } from 'next/navigation';
 
 interface Message {
@@ -30,7 +29,7 @@ export default function Chat() {
   const [keySellingPoints, setKeySellingPoints] = useState('');
 
   const router = useRouter();
-  const auth = getAuth();
+  
 
   const handleCopy = (content: string) => {
     navigator.clipboard.writeText(content).then(() => {
