@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,5 +26,25 @@ const auth = getAuth(app);
 const firestore=getFirestore(app);
 const db = getFirestore(app);
 
+const trackUserRequests = async (userId) => {
+  const userRef = doc(db, "users", userId);
+  const userDoc = await getDoc(userRef);
 
-export {firestore , db, auth, app, firebaseConfig} ;
+  // if (userDoc.exists()) {
+  //   const userData = userDoc.data();
+
+  //   if (userData.requestCount >= 10) {
+  //     return false; // User has exceeded request limit
+  //   } else {
+  //     await updateDoc(userRef, {
+  //       requestCount: userData.requestCount + 1,
+  //     });
+  //     return true; // Request count incremented
+  //   }
+  // } else {
+  //   await setDoc(userRef, { requestCount: 1 });
+  //   return true; // New user, request count set to 1
+  // }
+};
+
+export {firestore ,db, auth, app, firebaseConfig, trackUserRequests} ;

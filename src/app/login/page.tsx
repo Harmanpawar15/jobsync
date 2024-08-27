@@ -32,7 +32,7 @@ const Login: React.FC = () => {
       );
       console.log("User logged in:", userCredential.user);
       alert('Login successful!');
-      router.push('/');
+      router.push('/chat');
     } catch (err: any) {
       setError(err.message);
     }

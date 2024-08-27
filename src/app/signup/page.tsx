@@ -28,7 +28,7 @@ export function Signup() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log('User signed up:', userCredential.user);
       alert('Signup successful!');
-      router.push('/');
+      router.push('/chat');
     } catch (err: any) {
       setError(err.message);
     }

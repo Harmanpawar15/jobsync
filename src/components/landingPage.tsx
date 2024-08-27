@@ -31,7 +31,7 @@ export function TypewriterEffectSmoothDemo() {
   const router = useRouter();
 
   const handleJoinNowClick = () => {
-    router.push("/payment"); // Navigate to the Signup page
+    router.push("/signup"); // Navigate to the Signup page
   };
 
   const handleSignupClick = () => {

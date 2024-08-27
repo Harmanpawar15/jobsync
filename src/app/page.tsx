@@ -1,6 +1,6 @@
 
 "use client"
-import Chat from "@/components/chat";
+//import Chat from "@/components/chat";
 import FeaturedItems from "@/components/Features";
 import { TypewriterEffectSmoothDemo } from "@/components/landingPage";
 import Pricing from "@/components/Pricing";
@@ -16,7 +16,7 @@ export default function Home() {
    <TypewriterEffectSmoothDemo/>
   <FeaturedItems/>
   <Pricing/> 
-    <Chat/>
+    {/* <Chat/> */}
   
     </div>
   );

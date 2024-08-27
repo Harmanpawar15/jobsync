@@ -16,14 +16,17 @@ export default async function handler(req: Request) {
       My name is ${name}. I'm reaching out to ${hiringManager}, ${profileInfo}.
       Here are my key selling points:
       - ${keySellingPoints}
-      Generate a LinkedIn message that sounds me complimenting them , tweak  performance matrics from my keyselling points  with it by making it realted to his achiveements somehow   to  make it  300 characters.
+      Generate a LinkedIn message that sounds me complimenting them , tweak  performance matrics from my keyselling points  with it by making it realted to his achiveements somehow   to  make it  250 characters.
     `;
 
     console.log("Generated prompt:", prompt);
 
     const result = await model.generateContent(prompt);
+    console.log("Result from generateContent:", result);
+
     const response = await result.response;
     console.log("Response text:", response);
+    
     const text = await response.text();
     console.log("Generated text:", text);
     return Response.json({ "content": text });
