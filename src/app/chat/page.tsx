@@ -1,8 +1,9 @@
 
 
 'use client';
-import { db, auth, trackUserRequests } from '../../../firebase';
-import { useState } from 'react';
+
+import { getAuth } from 'firebase/auth';
+import { useState, useEffect } from 'react';
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid'; 
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
@@ -29,6 +30,7 @@ export default function Chat() {
   const [keySellingPoints, setKeySellingPoints] = useState('');
 
   const router = useRouter();
+  const auth = getAuth();
 
   const handleCopy = (content: string) => {
     navigator.clipboard.writeText(content).then(() => {
@@ -38,10 +40,12 @@ export default function Chat() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  
+
+
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
       const response = await fetch('/api/generateMessage', {
         method: 'POST',
@@ -80,6 +84,8 @@ export default function Chat() {
       setIsLoading(false);
     }
   };
+  
+
 
 
   return (

@@ -16,7 +16,10 @@ export default async function handler(req: Request) {
       My name is ${name}. I'm reaching out to ${hiringManager}, ${profileInfo}.
       Here are my key selling points:
       - ${keySellingPoints}
-      Generate a LinkedIn message that sounds me complimenting them , tweak  performance matrics from my keyselling points  with it by making it realted to his achiveements somehow   to  make it  250 characters.
+      Write a personalized and professional LinkedIn message of up to 250 characters where I
+       introduce myself to ${hiringManager}, compliment their achievements, and subtly showcase my relevant s
+       kills and experience. The message should be
+       engaging and tailored to connect my key selling points to ${hiringManager}'s accomplishments.
     `;
 
     console.log("Generated prompt:", prompt);

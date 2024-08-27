@@ -3,12 +3,8 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBcUlOeYc1T9l8tqBebykgP7Ee2QK0YL1s",
   authDomain: "jobsync-ce4b7.firebaseapp.com",
@@ -21,7 +17,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const firestore=getFirestore(app);
 const db = getFirestore(app);
@@ -30,21 +26,21 @@ const trackUserRequests = async (userId) => {
   const userRef = doc(db, "users", userId);
   const userDoc = await getDoc(userRef);
 
-  // if (userDoc.exists()) {
-  //   const userData = userDoc.data();
+  if (userDoc.exists()) {
+    const userData = userDoc.data();
 
-  //   if (userData.requestCount >= 10) {
-  //     return false; // User has exceeded request limit
-  //   } else {
-  //     await updateDoc(userRef, {
-  //       requestCount: userData.requestCount + 1,
-  //     });
-  //     return true; // Request count incremented
-  //   }
-  // } else {
-  //   await setDoc(userRef, { requestCount: 1 });
-  //   return true; // New user, request count set to 1
-  // }
+    if (userData.requestCount >= 3) {
+      return false; // User has exceeded request limit
+    } else {
+      await updateDoc(userRef, {
+        requestCount: userData.requestCount + 1,
+      });
+      return true; // Request count incremented
+    }
+  } else {
+    await setDoc(userRef, { requestCount: 1 });
+    return true; // New user, request count set to 1
+  }
 };
 
-export {firestore ,db, auth, app, firebaseConfig, trackUserRequests} ;
+export {firestore ,db, auth, app, firebaseConfig,  analytics} ;
