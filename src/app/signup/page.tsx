@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { BackgroundBeams } from "../../components/ui/background-beams";
 
 
-export function Signup() {
+  const  Signup=()=> {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
